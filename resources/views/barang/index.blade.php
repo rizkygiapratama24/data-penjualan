@@ -1,60 +1,75 @@
 @extends('layouts.master')
 
 @section('header')
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 @stop
 
 @section('content')
-    <div class="content-data">
-
-        <div class="card mb-3">
-            <div class="card-body">
-                <form action="" method="post">
-                    <div class="form-group row mb-0">
-                        <label for="filter_tanggal" class="col-sm-2 text-sm mb-0">Filter Tanggal</label>
-                        <div class="col-sm-4">
-                            <input type="date" name="tanggal_start" id="tanggal_start" class="form-control form-control-sm">
-                        </div>
-                        <span>-</span>
-                        <div class="col-sm-4">
-                            <input type="date" name="tanggal_end" id="tanggal_end" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-sm-1">
-                            <button type="button" class="btn btn-sm btn-primary" id="btn-filter">Filter</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title float-left mb-0">{{ $title }}</h5>
-                <button type="button" class="btn btn-sm btn-primary float-right" onclick="form_barang('tambah')">Tambah
-                    Barang</button>
-            </div>
-            <div class="card-body">
-                <table id="tabel-barang" class="table table-bordered w-100">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>NAMA BARANG</th>
-                            <th>STOK</th>
-                            <th>JUMLAH TERJUAL</th>
-                            <th>TANGGAL TRANSAKSI</th>
-                            <th>JENIS BARANG</th>
-                            <th>AKSI</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">{{ $title }}</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-sm btn-primary float-right" onclick="form_barang('tambah')">
+                        <i class="fas fa-plus"></i>
+                        Tambah Barang
+                    </button>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <form action="" method="post">
+                        <div class="form-group row align-items-center mb-0">
+                            <label for="filter_tanggal" class="col-sm-2 text-sm mb-0">Filter Tanggal</label>
+                            <div class="col-sm-4">
+                                <input type="date" name="tanggal_start" id="tanggal_start"
+                                    class="form-control form-control-sm">
+                            </div>
+                            <span>-</span>
+                            <div class="col-sm-4">
+                                <input type="date" name="tanggal_end" id="tanggal_end"
+                                    class="form-control form-control-sm">
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-primary" id="btn-filter">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <table id="tabel-barang" class="table table-sm table-bordered w-100">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>NAMA BARANG</th>
+                                <th>STOK</th>
+                                <th>JUMLAH TERJUAL</th>
+                                <th>TANGGAL TRANSAKSI</th>
+                                <th>JENIS BARANG</th>
+                                <th>AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal-Barang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -125,10 +140,10 @@
 @stop
 
 @section('footer')
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script>
         var table_barang;
         $(function() {
@@ -139,7 +154,7 @@
                 ajax: {
                     url: "{{ route('barang.show_barang') }}",
                     data: function(d) {
-                        d.tanggal_start =  $('#tanggal_start').val();
+                        d.tanggal_start = $('#tanggal_start').val();
                         d.tanggal_end = $('#tanggal_end').val();
                     }
                 },
@@ -161,8 +176,8 @@
                     data: "id",
                     render: function(data) {
                         return `
-                            <button type='button' class='btn btn-sm btn-warning' onclick='form_barang("update", ${data})'> Edit </button>
-                            <button type='button' class='btn btn-sm btn-danger' onclick='hapus_barang(${data})'> Hapus </button>
+                            <button type='button' class='btn btn-sm btn-warning' onclick='form_barang("update", ${data})'> <i class='fas fa-edit'></i> </button>
+                            <button type='button' class='btn btn-sm btn-danger' onclick='hapus_barang(${data})'> <i class='fas fa-trash'></i> </button>
                         `;
                     }
                 }]

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/product', [ProductController::class, 'index']);
+Route::get('/product/show_product', [ProductController::class, 'show_product'])->name('barang.show_product');
 
-Route::get('/', [BarangController::class, 'index']);
+Route::get('/barang', [BarangController::class, 'index']);
 Route::get('/barang/show_barang', [BarangController::class, 'show_barang'])->name('barang.show_barang');
 Route::get('/barang/get_barang/{id}', [BarangController::class, 'get_barang']);
 Route::post('/barang/action', [BarangController::class, 'action'])->name('barang.action');
